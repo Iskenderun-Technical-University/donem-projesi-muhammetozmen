@@ -1,0 +1,2 @@
+A4 (PDF)= 3508px x 2480px
+Dönüştürülecek boyut 3500x2400 (ebob 100 x= 240 y=350)
