@@ -109,5 +109,4 @@ for curr_letter in user_text:
     else:
         x_background+=35
     
-    #TO-DO: Satır sonuna "-" işareti eklenecek, alt satıra geçme çözülecek
-    
+    #TO-DO: Satır sonuna "-" işareti eklenecek, alt satıra geçme çözülecek, randomizing ihtimali kontrol edilecek
