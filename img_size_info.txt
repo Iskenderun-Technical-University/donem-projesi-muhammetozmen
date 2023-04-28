@@ -8,3 +8,5 @@ Kordinatlar
 x denk gelişi sonrasında
 0,49 	0,49
 
+harf büyüklüğü: 48x46
+
