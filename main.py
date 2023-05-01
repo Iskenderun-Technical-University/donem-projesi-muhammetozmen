@@ -5,6 +5,7 @@
 
 from PIL import Image ##Çeşitli imaj etkileşimi için Pillow kütüphanesi kullandım
 import sqlite3 as sql #SQL olarak SQLite tercih ettim.
+import random #Karakter rastgeleleştirmesi için kullandım.
 import os #Klasör yaratma gibi işletim sistemsel işlevler
 import shutil #Klasör silme gibi işletim sistemsel işlevler
 
@@ -50,6 +51,26 @@ def crop_letter(i,letter,coords):
         letter_path= f'./img/letters/alphabet/{i}.png'
         import_db(letter,letter_path)
 
+def foreground_randomizer(foreground):
+    rand_rotation= random.uniform(-10,10)
+    foreground= foreground.rotate(rand_rotation) #Döndürme
+    width, height= foreground.size
+    rand_size=random.uniform(0.9,1.1)
+    new_width= int(width*rand_size)
+    new_height= int(height*rand_size)
+    foreground= foreground.resize((new_width,new_height))
+    return foreground
+    
+
+def paste_letter(curr_path,x_background,y_background):
+    foreground= Image.open(curr_path).convert("RGBA")
+    foreground= foreground.crop((5,5,40,40))
+    alpha = foreground.split()[-1]
+    alpha = alpha.point(lambda x: 255 if x > 0 else 0)
+    foreground.putalpha(alpha)
+    foreground= foreground_randomizer(foreground)
+    background.paste(foreground,(x_background,y_background),foreground)
+
 #DEĞİŞKENLER
 i=0 #Dosya adı
 coords= [-47,51,-1,97] #0-x1,1-y1,2-x2,3-y2
@@ -79,6 +100,7 @@ for letter in alphabet_all:
         crop_letter(i,letter,coords)
 
 #Yazıyı oluşturma
+is_line= False
 x_background=20 #20
 y_background= 20 #8
 user_text= str(input("Cümle gir:"))
@@ -94,19 +116,18 @@ for curr_letter in user_text:
     else:
         cursor.execute("SELECT * FROM image_paths WHERE letter=(?)",(curr_letter))
         curr_path= cursor.fetchone()
-        #Alpha sınırlarını beyaz olarak ayarlıyoruz ve sonuna alpha kanalı oluşturuyoruz
-        foreground= Image.open(curr_path[1]).convert("RGBA")
-        foreground= foreground.crop((5,5,40,40))
-        alpha = foreground.split()[-1]
-        alpha = alpha.point(lambda x: 255 if x > 0 else 0)
-        foreground.putalpha(alpha)
-        background.paste(foreground,(x_background,y_background),foreground)
+        paste_letter(curr_path[1],x_background,y_background)
 
     background.save('./img/workbench/text.png')
-    if x_background+35>= 2460:
+    #Satır atlama
+    if x_background+70>= 2460:
+        x_background+=35
+        if curr_letter!=' ':
+            paste_letter('./img/letters/symbols/49.png',x_background,y_background)
         y_background+=40
         x_background=20
+        
     else:
         x_background+=35
     
-    #TO-DO: Satır sonuna "-" işareti eklenecek, alt satıra geçme çözülecek, randomizing ihtimali kontrol edilecek
+    #TO-DO:randomizing ihtimali kontrol edilecekk
