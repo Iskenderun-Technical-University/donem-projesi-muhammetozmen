@@ -1,5 +1,7 @@
 # Parwrite: El Yazısı Taklit Programı
 
+![image](https://drive.google.com/file/d/1QoULqC9qaqGTbxpy8SQqKQjkf9R3pQi1/view)
+
 **Parwrite Nedir?**
 
 > Parwrite, insanların el yazısı yazı stillerini dijital olarak kaydederek, yazı stilini koruyarak bilgisayar ortamında kullanılabilecek hale getiren bir teknolojidir. Bu teknoloji, özellikle el yazısı yazma tarzıyla öne çıkan veya kişisel bir imza niteliği taşıyan belgelerin, mektupların veya notların dijitalleştirilmesinde ve saklanmasında kullanışlıdır. Parwrite, kaydedilen el yazısı örnekleri üzerinden bir imaj tabanlı yazı biçemi (font) oluşturur ve bu fontu dijital ortama aktarır. Böylece, örneğin bir kişinin özel bir imzası, Parwrite sayesinde yazı, tabloyu dolduranın el yazısıyla aynı görünümü korur.
