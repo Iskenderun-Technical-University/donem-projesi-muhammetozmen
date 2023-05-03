@@ -1,6 +1,6 @@
 # Parwrite: El Yazısı Taklit Programı
 
-![image](./img/readme_images/logo.png)
+![Logo](./img/readme_images/logo.png)
 
 **Parwrite Nedir?**
 
@@ -15,7 +15,15 @@
 > - Tüm bunların yanında Parwrite projesi, el yazısı yazma işlemini dijitalleştirerek, belgelerin daha hızlı ve kolay bir şekilde yazılmasına olanak tanıdığından. Ayrıca, yazının doğrudan dijital ortamda kaydedilmesi, kağıt tüketimini azaltarak çevre dostu bir seçenek sunar.
 
 **Projenin Çalışma Mantığı**
-> Kullanıcı, 7x13'lük bir tabloya numara, sembol ve alfabenin tüm harflerini büyük ve küçük olacak şekilde el yazısı ile yazar. Daha sonra, Parwrite yazılımı, kaydedilen harflerle bir veri kümesi oluşturur ve bu veri kümesi, yazının dijital ortamda saklanabilmesi için kullanılır. Kullanıcı, istediği bir yazıyı el yazısı ile yazar ve Parwrite yazılımı, önceden kaydedilmiş harfleri kullanarak, yazıyı dijital ortamda kırpar ve çeşitli rastgeleleştirmeler yaparak kağıda döker.
+> Kullanıcı, 7x13'lük bir tabloya numara, sembol ve alfabenin tüm harflerini büyük ve küçük olacak şekilde el yazısı ile yazar.
+![Letter Table](./img/readme_images/letter_table.png)
+* El yazısı için arkadaşım tolgaya teşekkür ederim ;) *
+> Daha sonra, Parwrite yazılımı, kaydedilen harflerle bir veri kümesi oluşturur ve bu veri kümesi, yazının dijital ortamda saklanabilmesi için kullanılır. Kullanıcı, istediği bir yazıyı el yazısı ile yazar ve Parwrite yazılımı, önceden kaydedilmiş harfleri kullanarak, yazıyı dijital ortamda kırpar ve kullanıcının isteği üzerine çeşitli rastgeleleştirmeler ve font büyüklüğü değişiklikleri yaparak kağıda döker.
+![From App](./img/readme_images/fromapp.jpg)
+* Yapım aşamasından bir görüntüdür, proje bitişte farklı gözükebilir *
+> Son olarak kullanıcının tercihine göre PNG, JPEG veya PDF olarak kaydeder.
+![Result](./img/readme_images/example.png)
+
 
 **Projedeki Veritabanı Hakkında**
 > Parwrite projesinde, kullanıcının el yazısı ile yazdığı harfleri dijital ortamda saklamak için SQLite veritabanı kullanılacak. SQLite, küçük boyutu, hızlı performansı ve yerel bir veritabanı yönetim sistemi olarak kullanılabilmesi gibi özellikleri sayesinde, Parwrite projesi için uygun bir seçimdir. SQLite veritabanı içinde, her harf için bir tablo oluşturulacak. Tabloların sütunları, harf ve harfin bulunduğu dizini tutacak. Kullanıcının girdiği harf, bu tablolardan biri ile eşleştirilecek ve harfin bulunduğu dizin, Parwrite yazılımı tarafından okunarak kullanılabilecek. Bu veritabanı yapısı, Parwrite projesinde veri yönetimini kolaylaştıracak ve daha hızlı bir arama ve erişim işlemi sağlayacak. Örneğin, kullanıcı "A" harfini yazdığında, Parwrite yazılımı, SQLite veritabanındaki "A" tablosuna erişerek, bu harfin bulunduğu dizini kolayca bulabilecek. Parwrite projesinde kullanılan SQLite veritabanı yapısı, aynı zamanda gelecekteki geliştirmeler için de uygun bir temel oluşturur. Veritabanına yeni harfler veya semboller eklemek, mevcut harfleri düzenlemek veya silmek gibi işlemler, SQLite veritabanı yönetim araçları kullanılarak kolayca gerçekleştirilebilir.
