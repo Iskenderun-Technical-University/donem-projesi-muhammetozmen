@@ -33,3 +33,13 @@
 > Parwrite projesinde, kullanıcının el yazısı ile yazdığı harfleri dijital ortamda saklamak için SQLite veritabanı kullanılacak. SQLite, küçük boyutu, hızlı performansı ve yerel bir veritabanı yönetim sistemi olarak kullanılabilmesi gibi özellikleri sayesinde, Parwrite projesi için uygun bir seçimdir. SQLite veritabanı içinde, her harf için bir tablo oluşturulacak. Tabloların sütunları, harf ve harfin bulunduğu dizini tutacak. Kullanıcının girdiği harf, bu tablolardan biri ile eşleştirilecek ve harfin bulunduğu dizin, Parwrite yazılımı tarafından okunarak kullanılabilecek. Bu veritabanı yapısı, Parwrite projesinde veri yönetimini kolaylaştıracak ve daha hızlı bir arama ve erişim işlemi sağlayacak. Örneğin, kullanıcı "A" harfini yazdığında, Parwrite yazılımı, SQLite veritabanındaki "A" tablosuna erişerek, bu harfin bulunduğu dizini kolayca bulabilecek. Parwrite projesinde kullanılan SQLite veritabanı yapısı, aynı zamanda gelecekteki geliştirmeler için de uygun bir temel oluşturur. Veritabanına yeni harfler veya semboller eklemek, mevcut harfleri düzenlemek veya silmek gibi işlemler, SQLite veritabanı yönetim araçları kullanılarak kolayca gerçekleştirilebilir.
 >
 > Sonuç olarak, Parwrite projesinde kullanılacak SQLite veritabanı, veri yönetimini kolaylaştıran ve hızlı bir arama ve erişim işlemi sağlayan bir veritabanı yönetim sistemi olarak kullanılacak.
+
+---
+### Kullandığım Kaynaklara Atıflar:
+
+#### Font: 
+[Baby Doll](https://www.dafont.com/babydoll.font)
+[Morning Breeze](https://www.fontspace.com/morning-breeze-font-f64724)
+
+#### İmaj:
+[Kalem](https://static.thenounproject.com/png/118822-200.png)
