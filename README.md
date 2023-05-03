@@ -1,6 +1,6 @@
 # Parwrite: El Yazısı Taklit Programı
 
-![image](https://drive.google.com/file/d/1QoULqC9qaqGTbxpy8SQqKQjkf9R3pQi1/view)
+![image](./img/readme_images/logo.png)
 
 **Parwrite Nedir?**
 
