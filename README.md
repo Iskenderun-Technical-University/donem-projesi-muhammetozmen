@@ -18,16 +18,18 @@
 > Kullanıcı, 7x13'lük bir tabloya numara, sembol ve alfabenin tüm harflerini büyük ve küçük olacak şekilde el yazısı ile yazar.
 >
 > ![Letter Table](./img/readme_images/letter_table.png)
-> *El yazısı için arkadaşım Tolga'ya teşekkür ederim ;)*
+>
+>> *El yazısı için arkadaşım Tolga'ya teşekkür ederim ;)*
 >
 > Daha sonra, Parwrite yazılımı, kaydedilen harflerle bir veri kümesi oluşturur ve bu veri kümesi, yazının dijital ortamda saklanabilmesi için kullanılır. Kullanıcı, istediği bir yazıyı el yazısı ile yazar ve Parwrite yazılımı, önceden kaydedilmiş harfleri kullanarak, yazıyı dijital ortamda kırpar ve kullanıcının isteği üzerine çeşitli rastgeleleştirmeler ve font büyüklüğü değişiklikleri yaparak kağıda döker.
 >
 > ![From App](./img/readme_images/fromapp.jpg)
-> *Yapım aşamasından bir görüntüdür, proje bitişte farklı gözükebilir*
+>> *Yapım aşamasından bir görüntüdür, proje bitişte farklı gözükebilir*
 >
 > Son olarak kullanıcının tercihine göre PNG, JPEG veya PDF olarak kaydeder.
+> 
 > ![Result](./img/readme_images/example.png)
-> *Bu örnekte rastgelelik yüksektir, rastgelelik çeşitlilik doğurur ama okunabilirlikle ters orantılıdır.
+>> *Bu örnekte rastgelelik yüksektir, rastgelelik çeşitlilik doğurur ama okunabilirlikle ters orantılıdır.*
 
 
 **Projedeki Veritabanı Hakkında**
