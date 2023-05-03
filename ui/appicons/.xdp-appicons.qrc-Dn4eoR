@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="Images">
+    <file>paper_wallpaper.png</file>
+    <file>pen.png</file>
+    <file>parwrite.png</file>
+  </qresource>
+</RCC>
