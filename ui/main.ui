@@ -26,14 +26,14 @@
    <string>Parwrite</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../69a34b1a/appicons.qrc">
+   <iconset>
     <normaloff>:/Images/parwrite.png</normaloff>:/Images/parwrite.png</iconset>
   </property>
   <property name="windowOpacity">
    <double>1.000000000000000</double>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-image: url(:/Images/paper_wallpaper.png);</string>
+   <string notr="true">background-image: url(:/newPrefix/54a2229d/paper_wallpaper.png);</string>
   </property>
   <widget class="QLabel" name="logo_label">
    <property name="geometry">
@@ -50,8 +50,7 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">
-image: url(:/Images/parwrite.png);</string>
+    <string notr="true">image: url(:/newPrefix/71604487/parwrite.png);</string>
    </property>
    <property name="text">
     <string/>
@@ -98,7 +97,7 @@ font: 11pt &quot;Baby Doll&quot;;
 color: rgb(36, 31, 49);</string>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="input_table">
     <property name="focusPolicy">
@@ -579,36 +578,11 @@ font: 700 16pt &quot;Morning Breeze&quot;;</string>
         <height>51</height>
        </rect>
       </property>
-      <property name="text">
-       <string>        Yazdır  </string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="textinputdesc_label_11">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>170</x>
-        <y>250</y>
-        <width>31</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="contextMenuPolicy">
-       <enum>Qt::NoContextMenu</enum>
-      </property>
-      <property name="acceptDrops">
-       <bool>true</bool>
-      </property>
       <property name="styleSheet">
-       <string notr="true">image: url(:/Images/pen.png);</string>
+       <string notr="true">font: 700 17pt &quot;Morning Breeze&quot;;</string>
       </property>
       <property name="text">
-       <string/>
-      </property>
-      <property name="textInteractionFlags">
-       <set>Qt::NoTextInteraction</set>
+       <string>Yazdır</string>
       </property>
      </widget>
     </widget>
@@ -725,7 +699,7 @@ color: rgb(192, 191, 188);</string>
   </widget>
  </widget>
  <resources>
-  <include location="../69a34b1a/appicons.qrc"/>
+  <include location="../5aa5786e/resources.qrc"/>
  </resources>
  <connections/>
 </ui>
