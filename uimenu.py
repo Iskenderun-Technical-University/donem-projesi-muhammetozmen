@@ -9,8 +9,13 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QFileDialog
+import shutil
+import os
 import resource_rc
 
+
+current_dir = os.getcwd() #Programın çalıştığı dosyayı belirler.
 
 class Ui_page_main(object):
     def setupUi(self, page_main):
@@ -40,14 +45,14 @@ class Ui_page_main(object):
         font.setItalic(False)
         self.logotext_label.setFont(font)
         self.logotext_label.setStyleSheet("font: 700 90pt \"Baby Doll\";\n"
-"border-style:outset;\n"
-"color: rgb(165, 29, 45);")
+        "border-style:outset;\n"
+        "color: rgb(165, 29, 45);")
         self.logotext_label.setObjectName("logotext_label")
         self.tabWidget = QtWidgets.QTabWidget(page_main)
         self.tabWidget.setGeometry(QtCore.QRect(20, 200, 761, 381))
         self.tabWidget.setStyleSheet("background-color: rgb(192, 191, 188);\n"
-"font: 11pt \"Baby Doll\";\n"
-"color: rgb(36, 31, 49);")
+        "font: 11pt \"Baby Doll\";\n"
+        "color: rgb(36, 31, 49);")
         self.tabWidget.setObjectName("tabWidget")
         self.input_table = QtWidgets.QWidget()
         self.input_table.setFocusPolicy(QtCore.Qt.TabFocus)
@@ -55,22 +60,26 @@ class Ui_page_main(object):
         self.textinputdesc_label = QtWidgets.QLabel(self.input_table)
         self.textinputdesc_label.setGeometry(QtCore.QRect(20, 10, 301, 18))
         self.textinputdesc_label.setStyleSheet("color: rgb(165, 29, 45);\n"
-"font: 700 13pt \"Morning Breeze\";")
+        "font: 700 13pt \"Morning Breeze\";")
         self.textinputdesc_label.setObjectName("textinputdesc_label")
         self.tobeconv_text = QtWidgets.QPlainTextEdit(self.input_table)
         self.tobeconv_text.setGeometry(QtCore.QRect(20, 60, 721, 241))
         self.tobeconv_text.setStyleSheet("color: rgb(0, 0, 0);\n"
-"font: 300 13pt \"Morning Breeze\";")
+        "font: 300 13pt \"Morning Breeze\";")
         self.tobeconv_text.setObjectName("tobeconv_text")
         self.textinputdesc_label_2 = QtWidgets.QLabel(self.input_table)
         self.textinputdesc_label_2.setGeometry(QtCore.QRect(20, 30, 711, 18))
         self.textinputdesc_label_2.setStyleSheet("color: rgb(36, 31, 49);\n"
-"font: 13pt \"Morning Breeze\";")
+        "font: 13pt \"Morning Breeze\";")
         self.textinputdesc_label_2.setObjectName("textinputdesc_label_2")
+        
+        #ENTER TEXT BUTTON
         self.entertext_button = QtWidgets.QPushButton(self.input_table)
         self.entertext_button.setGeometry(QtCore.QRect(630, 310, 111, 31))
         self.entertext_button.setStyleSheet("")
         self.entertext_button.setObjectName("entertext_button")
+        self.entertext_button.clicked.connect(self.entertext_button_clicked) #Tıklama tetik
+
         self.tabWidget.addTab(self.input_table, "")
         self.output_table = QtWidgets.QWidget()
         self.output_table.setObjectName("output_table")
@@ -81,24 +90,33 @@ class Ui_page_main(object):
         self.textinputdesc_label_3 = QtWidgets.QLabel(self.data_sample_group)
         self.textinputdesc_label_3.setGeometry(QtCore.QRect(10, 50, 301, 18))
         self.textinputdesc_label_3.setStyleSheet("color: rgb(165, 29, 45);\n"
-"font: 700 11pt \"Morning Breeze\";")
+        "font: 700 11pt \"Morning Breeze\";")
         self.textinputdesc_label_3.setObjectName("textinputdesc_label_3")
         self.data_path = QtWidgets.QLineEdit(self.data_sample_group)
         self.data_path.setGeometry(QtCore.QRect(10, 70, 211, 26))
         self.data_path.setObjectName("data_path")
+
+        #DATA PATH ARAMA (KLASÖR)
         self.data_path_browse = QtWidgets.QPushButton(self.data_sample_group)
         self.data_path_browse.setGeometry(QtCore.QRect(230, 70, 81, 26))
         self.data_path_browse.setObjectName("data_path_browse")
+        self.data_path_browse.clicked.connect(self.data_path_browse_button_clicked) #Tıklama tetik
+
+        #DATA PATH'A DOSYA OLUŞTUR
         self.premade_data_path = QtWidgets.QCheckBox(self.data_sample_group)
         self.premade_data_path.setGeometry(QtCore.QRect(10, 100, 311, 24))
         self.premade_data_path.setObjectName("premade_data_path")
+
+        #DATA PATH ARAMA (DOLDURULMUŞ DOSYA)
         self.inputdata_path_browse = QtWidgets.QPushButton(self.data_sample_group)
         self.inputdata_path_browse.setGeometry(QtCore.QRect(230, 170, 81, 26))
         self.inputdata_path_browse.setObjectName("inputdata_path_browse")
+        self.inputdata_path_browse.clicked.connect(self.inputdata_path_browse_button_clicked) #Tıklama tetik
+
         self.textinputdesc_label_4 = QtWidgets.QLabel(self.data_sample_group)
         self.textinputdesc_label_4.setGeometry(QtCore.QRect(10, 150, 301, 18))
         self.textinputdesc_label_4.setStyleSheet("color: rgb(165, 29, 45);\n"
-"font: 700 11pt \"Morning Breeze\";")
+        "font: 700 11pt \"Morning Breeze\";")
         self.textinputdesc_label_4.setObjectName("textinputdesc_label_4")
         self.inputdata_path = QtWidgets.QLineEdit(self.data_sample_group)
         self.inputdata_path.setGeometry(QtCore.QRect(10, 170, 211, 26))
@@ -112,15 +130,20 @@ class Ui_page_main(object):
         self.textinputdesc_label_5 = QtWidgets.QLabel(self.data_sample_group)
         self.textinputdesc_label_5.setGeometry(QtCore.QRect(10, 230, 301, 18))
         self.textinputdesc_label_5.setStyleSheet("color: rgb(165, 29, 45);\n"
-"font: 700 11pt \"Morning Breeze\";")
+        "font: 700 11pt \"Morning Breeze\";")
         self.textinputdesc_label_5.setObjectName("textinputdesc_label_5")
+
+        #DATA PATH ARAMA 2 (KAYIT NOKTASI)
         self.data_path_browse_2 = QtWidgets.QPushButton(self.data_sample_group)
         self.data_path_browse_2.setGeometry(QtCore.QRect(230, 250, 81, 26))
         self.data_path_browse_2.setObjectName("data_path_browse_2")
+        self.data_path_browse_2.clicked.connect(self.data_path_browse_button_2_clicked) #Tıklama tetik
+
+
         self.textinputdesc_label_6 = QtWidgets.QLabel(self.data_sample_group)
         self.textinputdesc_label_6.setGeometry(QtCore.QRect(10, 280, 201, 21))
         self.textinputdesc_label_6.setStyleSheet("color: rgb(36, 31, 49);\n"
-"font: 700 11pt \"Morning Breeze\";")
+        "font: 700 11pt \"Morning Breeze\";")
         self.textinputdesc_label_6.setObjectName("textinputdesc_label_6")
         self.data_path_2 = QtWidgets.QLineEdit(self.data_sample_group)
         self.data_path_2.setGeometry(QtCore.QRect(10, 250, 211, 26))
@@ -132,60 +155,75 @@ class Ui_page_main(object):
         self.textinputdesc_label_7 = QtWidgets.QLabel(self.data_save_group)
         self.textinputdesc_label_7.setGeometry(QtCore.QRect(20, 50, 201, 21))
         self.textinputdesc_label_7.setStyleSheet("color: rgb(36, 31, 49);\n"
-"font: 700 11pt \"Morning Breeze\";")
+        "font: 700 11pt \"Morning Breeze\";")
         self.textinputdesc_label_7.setObjectName("textinputdesc_label_7")
+
+        #FONT BÜYÜKLÜĞÜ
         self.font_val = QtWidgets.QSpinBox(self.data_save_group)
         self.font_val.setGeometry(QtCore.QRect(180, 40, 41, 41))
         self.font_val.setMinimum(10)
         self.font_val.setMaximum(100)
         self.font_val.setProperty("value", 35)
         self.font_val.setObjectName("font_val")
+
         self.textinputdesc_label_8 = QtWidgets.QLabel(self.data_save_group)
         self.textinputdesc_label_8.setGeometry(QtCore.QRect(20, 110, 201, 21))
         self.textinputdesc_label_8.setStyleSheet("color: rgb(36, 31, 49);\n"
-"font: 700 11pt \"Morning Breeze\";")
+        "font: 700 11pt \"Morning Breeze\";")
         self.textinputdesc_label_8.setObjectName("textinputdesc_label_8")
+
+        #DÖNME BÜYÜKLÜĞÜ
         self.rotate_val = QtWidgets.QSpinBox(self.data_save_group)
         self.rotate_val.setGeometry(QtCore.QRect(180, 100, 41, 41))
         self.rotate_val.setMinimum(0)
         self.rotate_val.setMaximum(90)
         self.rotate_val.setProperty("value", 10)
         self.rotate_val.setObjectName("rotate_val")
+
+
         self.textinputdesc_label_9 = QtWidgets.QLabel(self.data_save_group)
         self.textinputdesc_label_9.setGeometry(QtCore.QRect(20, 170, 171, 21))
         self.textinputdesc_label_9.setStyleSheet("color: rgb(36, 31, 49);\n"
-"font: 700 11pt \"Morning Breeze\";")
+        "font: 700 11pt \"Morning Breeze\";")
         self.textinputdesc_label_9.setObjectName("textinputdesc_label_9")
+
+        #BÜYÜLTME/KÜÇÜLTME BÜYÜKLÜĞÜ
         self.resize_val = QtWidgets.QSpinBox(self.data_save_group)
         self.resize_val.setGeometry(QtCore.QRect(180, 160, 41, 41))
         self.resize_val.setMinimum(0)
         self.resize_val.setMaximum(90)
         self.resize_val.setProperty("value", 10)
         self.resize_val.setObjectName("resize_val")
+
         self.defaultval_label = QtWidgets.QLabel(self.data_save_group)
         self.defaultval_label.setGeometry(QtCore.QRect(230, 50, 91, 21))
         self.defaultval_label.setStyleSheet("color: rgb(154, 153, 150);\n"
-"font: italic 13pt \"Morning Breeze\";")
+        "font: italic 13pt \"Morning Breeze\";")
         self.defaultval_label.setObjectName("defaultval_label")
         self.defaultval_label_2 = QtWidgets.QLabel(self.data_save_group)
         self.defaultval_label_2.setGeometry(QtCore.QRect(230, 110, 91, 21))
         self.defaultval_label_2.setStyleSheet("color: rgb(154, 153, 150);\n"
-"font: italic 13pt \"Morning Breeze\";")
+        "font: italic 13pt \"Morning Breeze\";")
         self.defaultval_label_2.setObjectName("defaultval_label_2")
         self.defaultval_label_3 = QtWidgets.QLabel(self.data_save_group)
         self.defaultval_label_3.setGeometry(QtCore.QRect(230, 170, 91, 21))
         self.defaultval_label_3.setStyleSheet("color: rgb(154, 153, 150);\n"
-"font: italic 13pt \"Morning Breeze\";")
+        "font: italic 13pt \"Morning Breeze\";")
         self.defaultval_label_3.setObjectName("defaultval_label_3")
         self.textinputdesc_label_10 = QtWidgets.QLabel(self.data_save_group)
         self.textinputdesc_label_10.setGeometry(QtCore.QRect(20, 240, 141, 51))
         self.textinputdesc_label_10.setStyleSheet("color: rgb(165, 29, 45);\n"
-"font: 700 16pt \"Morning Breeze\";")
+        "font: 700 16pt \"Morning Breeze\";")
         self.textinputdesc_label_10.setObjectName("textinputdesc_label_10")
+
+        #YAZDIR BUTONU
         self.pushButton = QtWidgets.QPushButton(self.data_save_group)
         self.pushButton.setGeometry(QtCore.QRect(160, 240, 91, 51))
         self.pushButton.setStyleSheet("font: 700 17pt \"Morning Breeze\";")
         self.pushButton.setObjectName("pushButton")
+        self.pushButton.clicked.connect(self.print_clicked) #Tıklama tetik
+
+
         self.tabWidget.addTab(self.output_table, "")
         self.about_group = QtWidgets.QWidget()
         self.about_group.setObjectName("about_group")
@@ -211,19 +249,50 @@ class Ui_page_main(object):
         self.defaultval_label_4 = QtWidgets.QLabel(page_main)
         self.defaultval_label_4.setGeometry(QtCore.QRect(610, 140, 141, 21))
         self.defaultval_label_4.setStyleSheet("color: rgb(154, 153, 150);\n"
-"font: italic 13pt \"Morning Breeze\";")
+        "font: italic 13pt \"Morning Breeze\";")
         self.defaultval_label_4.setObjectName("defaultval_label_4")
         self.defaultval_label_5 = QtWidgets.QLabel(page_main)
         self.defaultval_label_5.setGeometry(QtCore.QRect(670, 160, 81, 21))
         self.defaultval_label_5.setStyleSheet("font: italic 13pt \"Morning Breeze\";\n"
-"color: rgb(192, 191, 188);")
+        "color: rgb(192, 191, 188);")
         self.defaultval_label_5.setObjectName("defaultval_label_5")
 
         self.retranslateUi(page_main)
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(page_main)
 
-    def retranslateUi(self, page_main):
+#BUTONLARA ATANAN GÖREVLER BURADAN SONRA BAŞLIYOR
+
+    def entertext_button_clicked(self):
+        main_text_submit= ui.tobeconv_text.toPlainText()
+
+    def data_path_browse_button_clicked(self):
+        dialog = QtWidgets.QFileDialog()
+        data_folder_path = dialog.getExistingDirectory(None, "Select Folder")
+        self.data_path.setText(data_folder_path)
+        if self.premade_data_path.isChecked() and data_folder_path!='':
+            shutil.copy(current_dir+'/img/testdata/letter_table.png', data_folder_path) #Doldurulmuş kağıt oluşturur
+        elif data_folder_path!='':
+            shutil.copy(current_dir+'/img/clean_temps/letter_table.png',data_folder_path) #Boş kağıt oluşturur
+            
+    def inputdata_path_browse_button_clicked(self):
+        dialog = QtWidgets.QFileDialog()
+        dialog.setDirectory('/path/to/starting/directory')
+        inputdata_folder_path, _ = dialog.getOpenFileName(None, "Select File", "", "Resim Dosyası (*.png)")
+        self.inputdata_path.setText(inputdata_folder_path)
+
+    def data_path_browse_button_2_clicked(self):
+        dialog = QtWidgets.QFileDialog()
+        data_folder_path2 = dialog.getExistingDirectory(None, "Select Folder")
+        self.data_path_2.setText(data_folder_path2)
+
+    def print_clicked(self):
+        selected_type = self.comboBox.currentText() #Kayededilecek tip
+        font_size = self.font_val.value() #Font büyüklüğü
+        rotating_size = self.rotate_val.value() #Dönme oranı
+        resizing_size= self.resize_val.value() #Büyüme-küçülme oranı
+
+    def retranslateUi(self, page_main): #Translate kısmı
         _translate = QtCore.QCoreApplication.translate
         page_main.setWindowTitle(_translate("page_main", "Parwrite"))
         self.logotext_label.setText(_translate("page_main", "PARWRITE"))
@@ -237,12 +306,16 @@ class Ui_page_main(object):
         self.data_path.setText(_translate("page_main", "./img/workbench"))
         self.data_path_browse.setText(_translate("page_main", "Dizin Seç"))
         self.premade_data_path.setText(_translate("page_main", "Doldurulmuş Tablo Oluştur (Deneme Amaçlı)"))
-        self.inputdata_path_browse.setText(_translate("page_main", "Dizin Seç"))
+        self.inputdata_path_browse.setText(_translate("page_main", "Dosya Seç"))
         self.textinputdesc_label_4.setText(_translate("page_main", "Doldurulmuş harf tablosu seç:"))
         self.inputdata_path.setText(_translate("page_main", "./img/workbench"))
+
+        #SAVE TYPE
         self.comboBox.setItemText(0, _translate("page_main", "PNG"))
         self.comboBox.setItemText(1, _translate("page_main", "PDF"))
         self.comboBox.setItemText(2, _translate("page_main", "JPEG"))
+        selected_type = self.comboBox.currentText()
+
         self.textinputdesc_label_5.setText(_translate("page_main", "Dosyanın kayıt noktası:"))
         self.data_path_browse_2.setText(_translate("page_main", "Dizin Seç"))
         self.textinputdesc_label_6.setText(_translate("page_main", "Dosya\'nın kaydedilme biçimi:"))
@@ -276,3 +349,7 @@ if __name__ == "__main__":
     sys.exit(app.exec_())
 
 #main'e yollanacaklar değişkenler
+# main_text_submit GİRİLEN YAZI
+# data_folder_path YENİ TABLO OLUŞTURMA YERİ
+# input_data_folder_path DOLU TABLO YERİ
+# data_folder_path2 DOSYANIN OLUŞTURULACAĞI YER

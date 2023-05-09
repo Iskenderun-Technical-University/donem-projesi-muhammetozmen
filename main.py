@@ -8,6 +8,7 @@ import sqlite3 as sql #SQL olarak SQLite tercih ettim.
 import random #Karakter rastgeleleştirmesi için kullandım.
 import os #Klasör yaratma gibi işletim sistemsel işlevler
 import shutil #Klasör silme gibi işletim sistemsel işlevler
+import uimenu #Kullanıcı arayüzünü ekler
 
 #Kırpılan resmin konumu paths.db'ye SQL verisi olarak kaydeder
 def import_db(letter,letter_path):
@@ -130,4 +131,3 @@ for curr_letter in user_text:
     else:
         x_background+=35
     
-    #TO-DO:randomizing ihtimali kontrol edilecekk
