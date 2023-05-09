@@ -1,0 +1,1 @@
+('PNG', 35, 10, 10, 'Metin boş bırakıldı', '/home/karitha/Programming/Python/donem-projesi-muhammetozmen', '/home/karitha/Programming/Python/donem-projesi-muhammetozmen', '/home/karitha/Programming/Python/donem-projesi-muhammetozmen')

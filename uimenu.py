@@ -12,8 +12,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
 import shutil
 import os
-import resource_rc
-
 
 current_dir = os.getcwd() #Programın çalıştığı dosyayı belirler.
 
@@ -264,9 +262,11 @@ class Ui_page_main(object):
 #BUTONLARA ATANAN GÖREVLER BURADAN SONRA BAŞLIYOR
 
     def entertext_button_clicked(self):
+        global main_text_submit
         main_text_submit= ui.tobeconv_text.toPlainText()
 
     def data_path_browse_button_clicked(self):
+        global data_folder_path
         dialog = QtWidgets.QFileDialog()
         data_folder_path = dialog.getExistingDirectory(None, "Select Folder")
         self.data_path.setText(data_folder_path)
@@ -276,21 +276,29 @@ class Ui_page_main(object):
             shutil.copy(current_dir+'/img/clean_temps/letter_table.png',data_folder_path) #Boş kağıt oluşturur
             
     def inputdata_path_browse_button_clicked(self):
+        global inputdata_folder_path
         dialog = QtWidgets.QFileDialog()
         dialog.setDirectory('/path/to/starting/directory')
         inputdata_folder_path, _ = dialog.getOpenFileName(None, "Select File", "", "Resim Dosyası (*.png)")
         self.inputdata_path.setText(inputdata_folder_path)
 
     def data_path_browse_button_2_clicked(self):
+        global data_folder_path2
         dialog = QtWidgets.QFileDialog()
         data_folder_path2 = dialog.getExistingDirectory(None, "Select Folder")
         self.data_path_2.setText(data_folder_path2)
 
-    def print_clicked(self):
+    def print_clicked(self): #YAZDIRMA ANA BUTON
+        global selected_type, font_size, rotating_size, resizing_size
         selected_type = self.comboBox.currentText() #Kayededilecek tip
         font_size = self.font_val.value() #Font büyüklüğü
         rotating_size = self.rotate_val.value() #Dönme oranı
         resizing_size= self.resize_val.value() #Büyüme-küçülme oranı
+        global all_gui_values
+        all_gui_values= (selected_type, font_size, rotating_size, resizing_size, main_text_submit, data_folder_path,inputdata_folder_path, data_folder_path2)
+        save_txt()
+        from main import gui_start_trigger
+        gui_start_trigger()
 
     def retranslateUi(self, page_main): #Translate kısmı
         _translate = QtCore.QCoreApplication.translate
@@ -338,8 +346,28 @@ class Ui_page_main(object):
         self.defaultval_label_4.setText(_translate("page_main", "by Muhammet Özmen"))
         self.defaultval_label_5.setText(_translate("page_main", "AKA Karitha"))
 
+def save_txt():
+        global all_gui_values
+        filename = "gui_values.txt"
+        with open(filename, "w") as file:
+            file.write("")
+        with open(filename, "a") as file:
+            string = str(all_gui_values)
+            file.write(string)
 
-if __name__ == "__main__":
+#DEFAULT DEĞERLER
+all_gui_values= tuple()
+selected_type= 'PNG'
+font_size= 35
+rotating_size= 10
+resizing_size= 10
+main_text_submit= 'Metin boş bırakıldı'
+data_folder_path= current_dir
+inputdata_folder_path= current_dir
+data_folder_path2= current_dir
+
+def start_gui():
+    global app, page_main, ui
     import sys
     app = QtWidgets.QApplication(sys.argv)
     page_main = QtWidgets.QWidget()
@@ -347,6 +375,7 @@ if __name__ == "__main__":
     ui.setupUi(page_main)
     page_main.show()
     sys.exit(app.exec_())
+
 
 #main'e yollanacaklar değişkenler
 # main_text_submit GİRİLEN YAZI
