@@ -263,7 +263,11 @@ class Ui_page_main(object):
 
     def entertext_button_clicked(self):
         global main_text_submit
-        main_text_submit= ui.tobeconv_text.toPlainText()
+        main_text_submit= ''
+        satirlar= ui.tobeconv_text.toPlainText().splitlines()
+        for satir in satirlar:
+            main_text_submit+=satir+'#'
+            print(main_text_submit)
 
     def data_path_browse_button_clicked(self):
         global data_folder_path
@@ -352,8 +356,9 @@ def save_txt():
         with open(filename, "w") as file:
             file.write("")
         with open(filename, "a") as file:
-            string = str(all_gui_values)
-            file.write(string)
+            for line in all_gui_values:
+                string = str(line)+"\n"
+                file.write(string)
 
 #DEFAULT DEĞERLER
 all_gui_values= tuple()
@@ -362,9 +367,9 @@ font_size= 35
 rotating_size= 10
 resizing_size= 10
 main_text_submit= 'Metin boş bırakıldı'
-data_folder_path= current_dir
-inputdata_folder_path= current_dir
-data_folder_path2= current_dir
+data_folder_path= current_dir+'/img/tesdata'
+inputdata_folder_path= current_dir + '/img/testdata/letter_table.png'
+data_folder_path2= current_dir + '/img/workbench'
 
 def start_gui():
     global app, page_main, ui

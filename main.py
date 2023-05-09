@@ -39,7 +39,13 @@ def clean_letters():
 #coords: sol üst, sağ alt kordinatları
 def crop_letter(i,letter,coords):
     image_obj = Image.open(path_letter_table)
-    cropped_image = image_obj.crop(coords)
+    unsized_image = image_obj.crop(coords)
+    #Font büyüklüğü ayarlama
+    width, height= unsized_image.size
+    new_width=int(width*(float(gui_val[1])/35))
+    new_height=int(height*(float(gui_val[1])/35))
+    cropped_image= unsized_image.resize((new_width,new_height), Image.ANTIALIAS)
+
     if letter in alphabet_numbers: #Klasör kategorizasyonu
         cropped_image.save(f'./img/letters/numbers/{i}.png')
         letter_path= f'./img/letters/numbers/{i}.png'
@@ -54,13 +60,14 @@ def crop_letter(i,letter,coords):
         import_db(letter,letter_path)
 
 def foreground_randomizer(foreground):
+    global new_width
     rand_rotation= random.uniform(-10,10)
     foreground= foreground.rotate(rand_rotation) #Döndürme
     width, height= foreground.size
     rand_size=random.uniform(0.9,1.1)
     new_width= int(width*rand_size)
     new_height= int(height*rand_size)
-    foreground= foreground.resize((new_width,new_height))
+    foreground= foreground.resize((new_width,new_height), Image.ANTIALIAS)
     return foreground
     
 def paste_letter(curr_path,x_background,y_background):
@@ -94,46 +101,43 @@ def crop_loop(): #Kırpma döngüsü
             crop_letter(i,letter,coords)
 
 def create_text(): #Yazıyı oluşturma
-    global is_line, x_background, y_background, user_text, background, cursor, curr_path, gui_val
-    is_line= False
+    global x_background, y_background, user_text, background, cursor, curr_path, gui_val, new_width
     x_background=20 #20
     y_background= 20 #8
     background= Image.open('./img/clean_temps/a4.png')
     for curr_letter in gui_val[4]:
-        if curr_letter==' ':
-            if x_background + 35 >=2460:
-                y_background+=40
+        space_randomizer= random.uniform(0.2,0.7) #Boşluk miktarını rastgeleleştirir
+        if curr_letter==' ' or curr_letter not in alphabet_all:
+            if x_background + new_width >=2460 or curr_letter=='#':
+                y_background+= new_width*1.4
                 x_background=20
             else:
-                x_background+=35
+                x_background+=int(new_width*space_randomizer)
         else:
             cursor.execute("SELECT * FROM image_paths WHERE letter=(?)",(curr_letter))
             curr_path= cursor.fetchone()
             paste_letter(curr_path[1],x_background,y_background)
-        background.save('./img/workbench/text.png')
+        background.save(str(gui_val[7])+'/text.png')
         #Satır atlama
-        if x_background+70>= 2460:
-            x_background+=35
-            if curr_letter!=' ':
+        if x_background+(new_width*2)>= 2460 or curr_letter=='#':
+            x_background+=new_width
+            if curr_letter!=' ' and curr_letter!='#':
                 paste_letter('./img/letters/symbols/49.png',x_background,y_background)
-            y_background+=40
+            y_background+=new_width
             x_background=20
-            
         else:
-            x_background+=35
+            x_background+=new_width
 
 def gui_start_trigger(): #Yazdır butonuna tıklayınca tetiklenecek fonksiyon, başla emri
     #uimenu'da kaydedilen değişkenleri main'e aktarır
+    global gui_val, background
     with open("gui_values.txt", "r") as dosya:
-        gui_val = list(dosya.read())
+        gui_val = [satir.rstrip() for satir in dosya.readlines()]
         #gui_val= (0-selected_type, 1-font_size, 2-rotating_size, 3-resizing_size, 4-main_text_submit, 5-data_folder_path, 6-inputdata_folder_path, 7-data_folder_path2)
-    print(gui_val)
-    print(type(gui_val))
     start_sql()
     crop_loop()
     create_text()
     print("Bitti")
-
 
 #DEĞİŞKENLER
 i=0 #Dosya adı
@@ -142,7 +146,9 @@ path_letter_table= './img/testdata/letter_table.png' #BURAYI DAHA SONRA WORKBENC
 alphabet_all= 'ABCÇDEFGĞHIİJxKLMNOÖPRSŞTUÜxVYZ0123456789x/"\'.,?!()-+;:xabcçdefgğhıijxklmnoöprsştuüxvyz%=><*[]{}~' #Döngü üstü harf kontrolü, x'ler alt satır temsil ediyor
 alphabet_symbols= '/"\'.,?!()-+;:%=><*[]{}~' #Liste içindeki semboller
 alphabet_numbers= '0123456789' #Liste içindeki numaralar
+alphabet_words= 'ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZabcçdefgğhıijklmnoöprsştuüvyz'
 letter_path= None #Son kırpılan harfin path'ini tutar
+new_width= float()
 
 
 
