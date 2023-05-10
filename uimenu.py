@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtWidgets import QFileDialog, QMainWindow
 import shutil
 import os
 
@@ -349,6 +349,11 @@ class Ui_page_main(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.about_group), _translate("page_main", "Hakkında"))
         self.defaultval_label_4.setText(_translate("page_main", "by Muhammet Özmen"))
         self.defaultval_label_5.setText(_translate("page_main", "AKA Karitha"))
+
+def close_ui():
+    import sys
+    page_main.hide()
+    sys.exit(app.exec())
 
 def save_txt():
         global all_gui_values

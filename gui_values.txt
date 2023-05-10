@@ -2,7 +2,7 @@ PNG
 35
 10
 10
-karagümrük yanıyor#
+Metin boş bırakıldı
 /home/karitha/Programming/Python/donem-projesi-muhammetozmen/img/tesdata
 /home/karitha/Programming/Python/donem-projesi-muhammetozmen/img/testdata/letter_table.png
 /home/karitha/Programming/Python/donem-projesi-muhammetozmen/img/workbench

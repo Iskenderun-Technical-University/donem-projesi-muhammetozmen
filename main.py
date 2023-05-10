@@ -8,6 +8,8 @@ import sqlite3 as sql #SQL olarak SQLite tercih ettim.
 import random #Karakter rastgeleleştirmesi için kullandım.
 import os #Klasör yaratma gibi işletim sistemsel işlevler
 import shutil #Klasör silme gibi işletim sistemsel işlevler
+import sys
+from reportlab.pdfgen import canvas
 
 #Kırpılan resmin konumu paths.db'ye SQL verisi olarak kaydeder
 def import_db(letter,letter_path):
@@ -39,13 +41,7 @@ def clean_letters():
 #coords: sol üst, sağ alt kordinatları
 def crop_letter(i,letter,coords):
     image_obj = Image.open(path_letter_table)
-    unsized_image = image_obj.crop(coords)
-    #Font büyüklüğü ayarlama
-    width, height= unsized_image.size
-    new_width=int(width*(float(gui_val[1])/35))
-    new_height=int(height*(float(gui_val[1])/35))
-    cropped_image= unsized_image.resize((new_width,new_height), Image.ANTIALIAS)
-
+    cropped_image = image_obj.crop(coords)
     if letter in alphabet_numbers: #Klasör kategorizasyonu
         cropped_image.save(f'./img/letters/numbers/{i}.png')
         letter_path= f'./img/letters/numbers/{i}.png'
@@ -60,7 +56,6 @@ def crop_letter(i,letter,coords):
         import_db(letter,letter_path)
 
 def foreground_randomizer(foreground):
-    global new_width
     rand_rotation= random.uniform(-10,10)
     foreground= foreground.rotate(rand_rotation) #Döndürme
     width, height= foreground.size
@@ -71,13 +66,16 @@ def foreground_randomizer(foreground):
     return foreground
     
 def paste_letter(curr_path,x_background,y_background):
+    global gui_val
     foreground= Image.open(curr_path).convert("RGBA")
     foreground= foreground.crop((5,5,40,40))
     alpha = foreground.split()[-1]
     alpha = alpha.point(lambda x: 255 if x > 0 else 0)
     foreground.putalpha(alpha)
     foreground= foreground_randomizer(foreground)
-    background.paste(foreground,(x_background,y_background),foreground)
+    resized_foreground= foreground.resize((int(gui_val[1]),int(gui_val[1])))
+    background.paste(resized_foreground,(int(x_background),int(y_background)),resized_foreground)
+    print(".")
 
 def start_sql(): #SQL Başlat
     global conn, cursor
@@ -109,7 +107,7 @@ def create_text(): #Yazıyı oluşturma
         space_randomizer= random.uniform(0.2,0.7) #Boşluk miktarını rastgeleleştirir
         if curr_letter==' ' or curr_letter not in alphabet_all:
             if x_background + new_width >=2460 or curr_letter=='#':
-                y_background+= new_width*1.4
+                y_background+= new_width
                 x_background=20
             else:
                 x_background+=int(new_width*space_randomizer)
@@ -117,7 +115,7 @@ def create_text(): #Yazıyı oluşturma
             cursor.execute("SELECT * FROM image_paths WHERE letter=(?)",(curr_letter))
             curr_path= cursor.fetchone()
             paste_letter(curr_path[1],x_background,y_background)
-        background.save(str(gui_val[7])+'/text.png')
+        background.save(str(gui_val[7])+'/text.'+gui_val[0])
         #Satır atlama
         if x_background+(new_width*2)>= 2460 or curr_letter=='#':
             x_background+=new_width
@@ -130,14 +128,32 @@ def create_text(): #Yazıyı oluşturma
 
 def gui_start_trigger(): #Yazdır butonuna tıklayınca tetiklenecek fonksiyon, başla emri
     #uimenu'da kaydedilen değişkenleri main'e aktarır
-    global gui_val, background
+    global gui_val, background, new_width, conn
     with open("gui_values.txt", "r") as dosya:
         gui_val = [satir.rstrip() for satir in dosya.readlines()]
         #gui_val= (0-selected_type, 1-font_size, 2-rotating_size, 3-resizing_size, 4-main_text_submit, 5-data_folder_path, 6-inputdata_folder_path, 7-data_folder_path2)
+    new_width= int(gui_val[1])
     start_sql()
     crop_loop()
     create_text()
     print("Bitti")
+    if gui_val[0]=='PDF':
+        can = canvas.Canvas('text.pdf')
+        can.drawString(20, 400, "")
+        can.drawImage(str(gui_val[7])+'/text.'+gui_val[0], 0, 0, width=120, preserveAspectRatio=True, mask='auto')
+        can.showPage()
+        can.save()
+    from uimenu import close_ui
+    close_ui()
+    print("exit pop")
+    import time
+    time.sleep(3)
+    end_pop()
+
+def end_pop():
+    from done_ui import exit_pop
+    exit_pop()
+
 
 #DEĞİŞKENLER
 i=0 #Dosya adı
@@ -149,7 +165,6 @@ alphabet_numbers= '0123456789' #Liste içindeki numaralar
 alphabet_words= 'ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZabcçdefgğhıijklmnoöprsştuüvyz'
 letter_path= None #Son kırpılan harfin path'ini tutar
 new_width= float()
-
 
 
 
