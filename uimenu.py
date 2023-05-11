@@ -260,14 +260,13 @@ class Ui_page_main(object):
         QtCore.QMetaObject.connectSlotsByName(page_main)
 
 #BUTONLARA ATANAN GÖREVLER BURADAN SONRA BAŞLIYOR
-
     def entertext_button_clicked(self):
         global main_text_submit
         main_text_submit= ''
         satirlar= ui.tobeconv_text.toPlainText().splitlines()
         for satir in satirlar:
             main_text_submit+=satir+'#'
-            print(main_text_submit)
+        print("Yazı kaydedildi")
 
     def data_path_browse_button_clicked(self):
         global data_folder_path
@@ -350,10 +349,10 @@ class Ui_page_main(object):
         self.defaultval_label_4.setText(_translate("page_main", "by Muhammet Özmen"))
         self.defaultval_label_5.setText(_translate("page_main", "AKA Karitha"))
 
+
 def close_ui():
     import sys
-    page_main.hide()
-    sys.exit(app.exec())
+    sys.exit()
 
 def save_txt():
         global all_gui_values
@@ -385,6 +384,7 @@ def start_gui():
     ui.setupUi(page_main)
     page_main.show()
     sys.exit(app.exec_())
+
 
 
 #main'e yollanacaklar değişkenler

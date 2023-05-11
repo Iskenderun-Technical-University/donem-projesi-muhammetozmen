@@ -1,7 +1,0 @@
-<RCC>
-  <qresource prefix="./ui/appicons/">
-    <file>paper_wallpaper.png</file>
-    <file>parwrite.png</file>
-    <file>pen.png</file>
-  </qresource>
-</RCC>
