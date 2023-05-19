@@ -34,6 +34,13 @@ def clean_letters():
     os.mkdir('./img/letters/symbols')
     os.mkdir('./img/letters/numbers')
 
+    #GUI Val txt'sini siler
+    guitxt_path = "./gui_values.txt"
+    if os.path.isfile(guitxt_path):
+        os.remove(guitxt_path)
+    else:
+        print("gui_values.txt dosyası bulunamadı")
+
 
 #Bu fonksiyon ile img/workbench içinde bulunan işlenmek üzere doldurulmuş 'letter_table.png' üstündeki harfler çağrılma sırasına göre kırpılıyor  ve img/letters/alphabet klasörüne kaydediliyor
 #coords: sol üst, sağ alt kordinatları
@@ -156,6 +163,7 @@ def gui_start_trigger(): #Yazdır butonuna tıklayınca tetiklenecek fonksiyon, 
     print("Tüm işlem başarıyla tamamlandı...")
     from uimenu import close_ui
     close_ui()
+    clean_letters()
     print("Program Bitti")
 
 
