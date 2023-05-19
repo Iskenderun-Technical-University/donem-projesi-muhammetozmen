@@ -34,7 +34,7 @@ def clean_letters():
     os.mkdir('./img/letters/symbols')
     os.mkdir('./img/letters/numbers')
 
-    #GUI Val txt'sini siler
+    #GUI Val txt'sini silme
     guitxt_path = "./gui_values.txt"
     if os.path.isfile(guitxt_path):
         os.remove(guitxt_path)
